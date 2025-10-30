@@ -157,3 +157,4 @@ Writing Output: C:\Users\shuns\Desktop\minecraft-damage-tracker\build\reobfJar\o
   com/dawnforger/KeyBindingHandler.class
   com/dawnforger/MineAndSlashIntegration.class
   com/dawnforger/OverlayRenderer.class
+  pack.mcmeta
