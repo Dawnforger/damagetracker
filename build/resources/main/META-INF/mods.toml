@@ -10,8 +10,8 @@ description='''
 A client-side damage tracking overlay for Mine and Slash. 
 Displays real-time damage statistics similar to WoW's Details! addon.
 '''
-authors="DamageTracker"
-displayURL="https://github.com/damagetracker/damagetracker"
+authors="Dawnforger"
+displayURL="https://github.com/dawnforger/damagetracker"
 
 [[dependencies.damagetracker]]
     modId="forge"
