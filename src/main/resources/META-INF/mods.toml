@@ -1,0 +1,29 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+
+[[mods]]
+modId="damagetracker"
+version="1.0.0"
+displayName="Damage Tracker"
+description='''
+A client-side damage tracking overlay for Mine and Slash. 
+Displays real-time damage statistics similar to WoW's Details! addon.
+'''
+authors="DamageTracker"
+displayURL="https://github.com/damagetracker/damagetracker"
+
+[[dependencies.damagetracker]]
+    modId="forge"
+    mandatory=true
+    versionRange="[47,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.damagetracker]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20.1]"
+    ordering="NONE"
+    side="BOTH"
+
