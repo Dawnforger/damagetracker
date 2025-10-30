@@ -27,3 +27,9 @@ displayURL="https://github.com/dawnforger/damagetracker"
     ordering="NONE"
     side="BOTH"
 
+[[dependencies.damagetracker]]
+modId="mmorpg"
+mandatory=false
+versionRange="[6.3.11,)"
+ordering="AFTER"
+side="CLIENT"
