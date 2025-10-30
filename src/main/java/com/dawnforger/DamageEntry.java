@@ -1,4 +1,4 @@
-package com.damagetracker;
+package com.dawnforger;
 
 /**
  * Represents a single damage event

@@ -62,7 +62,7 @@ A comprehensive guide for developers who want to modify, extend, or contribute t
 ### Package Structure
 
 ```
-com.damagetracker
+com.dawnforger
 ├── DamageTrackerMod          # Main mod class
 ├── DamageTracker             # Singleton tracking system
 ├── DamageEntry               # Individual damage event
@@ -120,7 +120,7 @@ Enable debug logging in development:
 
 1. Edit `src/main/resources/log4j2.xml` (create if needed):
    ```xml
-   <Logger level="debug" name="com.damagetracker"/>
+   <Logger level="debug" name="com.dawnforger"/>
    ```
 
 2. Use logger in code:
@@ -280,7 +280,7 @@ public void onRenderOverlay(RenderGuiOverlayEvent.Post event) {
 Create new class `DataExporter.java`:
 
 ```java
-package com.damagetracker;
+package com.dawnforger;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -290,13 +290,13 @@ public class DataExporter {
     public static void exportToCSV(List<DamageStats> stats, String filename) {
         try (FileWriter writer = new FileWriter(filename)) {
             writer.write("Source,Total Damage,DPS,Hit Count\n");
-            
+
             for (DamageStats stat : stats) {
                 writer.write(String.format("%s,%.2f,%.2f,%d\n",
-                    stat.getSource(),
-                    stat.getTotalDamage(),
-                    stat.getDps(),
-                    stat.getHitCount()
+                        stat.getSource(),
+                        stat.getTotalDamage(),
+                        stat.getDps(),
+                        stat.getHitCount()
                 ));
             }
         } catch (IOException e) {

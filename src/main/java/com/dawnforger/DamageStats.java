@@ -1,4 +1,4 @@
-package com.damagetracker;
+package com.dawnforger;
 
 /**
  * Represents aggregated damage statistics for a specific source

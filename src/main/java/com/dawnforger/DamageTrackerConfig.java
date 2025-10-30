@@ -1,4 +1,4 @@
-package com.damagetracker;
+package com.dawnforger;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 

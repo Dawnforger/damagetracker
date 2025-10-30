@@ -1,4 +1,4 @@
-package com.damagetracker;
+package com.dawnforger;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;

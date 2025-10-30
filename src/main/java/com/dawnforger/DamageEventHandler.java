@@ -1,6 +1,5 @@
-package com.damagetracker;
+package com.dawnforger;
 
-import com.robertx22.mine_and_slash.event_hooks.damage_hooks.OnNonPlayerDamageEntityEvent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
