@@ -6,6 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="6cb4230e-f4fc-4193-9fe7-061917126a6d" name="Changes" comment="fixed chat solution">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/dawnforger/DamageEntry.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/dawnforger/DamageEventHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/dawnforger/DamageStats.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/dawnforger/DamageTracker.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/dawnforger/DamageTrackerConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/dawnforger/DamageTrackerMod.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/dawnforger/KeyBindingHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/dawnforger/MineAndSlashIntegration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/dawnforger/OverlayRenderer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/dawnforger/SourceLabelResolver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/mods.toml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/mods.toml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -317,7 +328,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761886602437</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="fixed chat solution">
+      <option name="closed" value="true" />
+      <created>1761886731011</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1761886731011</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
