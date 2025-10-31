@@ -19,7 +19,7 @@ public final class ClientConfig {
     public static final ForgeConfigSpec.IntValue OVERLAY_MAX_HEIGHT;
     public static final ForgeConfigSpec.BooleanValue OVERLAY_ENABLED_DEFAULT;
 
-    // Element colors (ARGB)
+    // Element colors (ARGB) — stored as signed ints, so allow full int range
     public static final ForgeConfigSpec.IntValue COLOR_PHYSICAL;
     public static final ForgeConfigSpec.IntValue COLOR_FIRE;
     public static final ForgeConfigSpec.IntValue COLOR_LIGHTNING;
@@ -46,15 +46,18 @@ public final class ClientConfig {
         b.pop();
 
         b.push("colors");
-        // ARGB hex like 0xFFAABBCC (alpha in high byte)
-        COLOR_PHYSICAL  = b.defineInRange("physical",  0xFFCCCCCC, 0, 0xFFFFFFFF);
-        COLOR_FIRE      = b.defineInRange("fire",      0xFFFF6B5A, 0, 0xFFFFFFFF);
-        COLOR_LIGHTNING = b.defineInRange("lightning", 0xFFFFE066, 0, 0xFFFFFFFF);
-        COLOR_COLD      = b.defineInRange("cold",      0xFF66CCFF, 0, 0xFFFFFFFF);
-        COLOR_NATURE    = b.defineInRange("nature",    0xFF6EDC6E, 0, 0xFFFFFFFF);
-        COLOR_SHADOW    = b.defineInRange("shadow",    0xFFB266FF, 0, 0xFFFFFFFF);
-        COLOR_HOLY      = b.defineInRange("holy",      0xFFFFF3B0, 0, 0xFFFFFFFF);
-        COLOR_MULTI     = b.defineInRange("multi",     0xFFB0B0B0, 0, 0xFFFFFFFF);
+        // IMPORTANT: ARGB ints like 0xFFxxxxxx are NEGATIVE in Java int.
+        // Use the *full* signed 32-bit range for min/max to avoid range errors.
+        final int MIN = Integer.MIN_VALUE;
+        final int MAX = Integer.MAX_VALUE;
+        COLOR_PHYSICAL  = b.defineInRange("physical",  0xFFCCCCCC, MIN, MAX);
+        COLOR_FIRE      = b.defineInRange("fire",      0xFFFF6B5A, MIN, MAX);
+        COLOR_LIGHTNING = b.defineInRange("lightning", 0xFFFFE066, MIN, MAX);
+        COLOR_COLD      = b.defineInRange("cold",      0xFF66CCFF, MIN, MAX);
+        COLOR_NATURE    = b.defineInRange("nature",    0xFF6EDC6E, MIN, MAX);
+        COLOR_SHADOW    = b.defineInRange("shadow",    0xFFB266FF, MIN, MAX);
+        COLOR_HOLY      = b.defineInRange("holy",      0xFFFFF3B0, MIN, MAX);
+        COLOR_MULTI     = b.defineInRange("multi",     0xFFB0B0B0, MIN, MAX);
         b.pop();
 
         SPEC = b.build();
