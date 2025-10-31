@@ -149,6 +149,7 @@ Writing Output: C:\Users\shuns\Desktop\minecraft-damage-tracker\build\reobfJar\o
   com/
   com/dawnforger/
   com/dawnforger/damagetracker/
+  com/dawnforger/damagetracker/DamageTracker.class
   com/dawnforger/damagetracker/client/
   com/dawnforger/damagetracker/client/ClientConfig.class
   com/dawnforger/damagetracker/client/ClientDamageStore$Entry.class
