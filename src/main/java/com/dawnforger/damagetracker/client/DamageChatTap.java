@@ -1,42 +1,39 @@
 package com.dawnforger.damagetracker.client;
 
-import net.minecraft.network.chat.Component;
+import com.dawnforger.damagetracker.DamageTracker;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ClientChatReceivedEvent;
-import net.minecraftforge.client.event.ClientSystemChatEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod.EventBusSubscriber(modid = "damagetracker", value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
-public final class DamageChatTap {
+@Mod.EventBusSubscriber(modid = DamageTracker.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
+public class DamageChatTap {
 
-    private static final Logger LOG = LogManager.getLogger("DamageTracker/ChatTap");
+    private static final Logger LOG = LogManager.getLogger("DamageTracker.ChatTap");
 
-    private DamageChatTap() {}
-
-    // Player/most messages
-    @SubscribeEvent
+    /**
+     * Forge fires this for normal chat (what Mine & Slash uses).
+     * We read the plain string, try to parse a damage number, and, if present,
+     * add it to the rolling window so the overlay can render totals.
+     */
+    @SubscribeEvent(receiveCanceled = true)
     public static void onClientChat(ClientChatReceivedEvent event) {
-        handle(event.getMessage(), "ClientChatReceivedEvent");
-    }
+        // Get a raw, color-stripped string
+        final String raw = event.getMessage().getString();
+        if (raw == null || raw.isEmpty()) {
+            return;
+        }
 
-    // System messages (some servers/mods route here)
-    @SubscribeEvent
-    public static void onSystemChat(ClientSystemChatEvent event) {
-        handle(event.getMessage(), "ClientSystemChatEvent");
-    }
+        // Quick INFO so you can see the tap is working at default log level
+        LOG.info("[DT] ChatTap saw: {}", raw);
 
-    private static void handle(Component comp, String src) {
-        if (comp == null) return;
-        String raw = comp.getString();
-        String norm = DamageParsers.normalize(raw);
-        double before = ClientDamageStore.totalInWindowMs(10_000);
-        DamageParsers.tryRecordFromLine(norm);
-        double after = ClientDamageStore.totalInWindowMs(10_000);
-        if (after > before) {
-            LOG.debug("[DT] Parsed damage from {}: "{}" (total10s now: {})", src, norm, after);
+        Double dmg = DamageParsers.tryParseDamage(raw);
+        if (dmg != null && dmg > 0) {
+            double after = DamageService.getInstance().recordDamage("CHAT", dmg);
+            // Leave this at DEBUG to avoid spam once you’re confident
+            LOG.debug("[DT] Parsed damage from {}: \"{}\" (rollingTotalNow: {})", "CHAT", raw, after);
         }
     }
 }

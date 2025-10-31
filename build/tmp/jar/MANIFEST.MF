@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Specification-Title: damagetracker
-Specification-Vendor: damagetracker
-Specification-Version: 1
-Implementation-Title: damagetracker
-Implementation-Version: 1.0.0
-Implementation-Vendor: damagetracker
-

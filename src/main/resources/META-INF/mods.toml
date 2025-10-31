@@ -4,7 +4,7 @@ license="MIT"
 
 [[mods]]
 modId="damagetracker"
-version="1.0.1"
+version="1.0.2"
 displayName="Damage Tracker"
 description='''
 A client-side damage tracking overlay for Mine and Slash. 

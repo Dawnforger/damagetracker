@@ -14,30 +14,30 @@ public final class DamageParsers {
         // "[Name] applied 1419.65 ✦ Lightning Damage with Electrify"
         // "[Name] dealt 1708.44 ✦ Multi-Element Damage with Basic Attack"
         PATTERNS.add(Pattern.compile(
-            "^\[[^\]]+\]\s+(?:applied|dealt)\s+([\d,]+(?:\.\d+)?)\s*[\p{S}\p{P}]?\s+[A-Za-z\- ]+\s+Damage\b.*$",
-            Pattern.CASE_INSENSITIVE));
+                "^\\[[^\\]]+\\]\\s+(?:applied|dealt)\\s+([\\d,]+(?:\\.\\d+)?)\\s*[\\p{S}\\p{P}]?\\s+[A-Za-z\\- ]+\\s+Damage\\b.*$",
+                Pattern.CASE_INSENSITIVE));
 
         // More forgiving: "... applied 12,345.6 * Element Damage ..."
         PATTERNS.add(Pattern.compile(
-            "\b(?:applied|dealt)\s+([\d,]+(?:\.\d+)?)\b.*?\bDamage\b",
-            Pattern.CASE_INSENSITIVE));
+                "\\b(?:applied|dealt)\\s+([\\d,]+(?:\\.\\d+)?)\\b.*?\\bDamage\\b",
+                Pattern.CASE_INSENSITIVE));
 
-        // Generic fallbacks kept from v1
+        // Generic fallbacks
         PATTERNS.add(Pattern.compile(
-            "\byou dealt\s+([\d,]+(?:\.\d+)?)\s+(?:damage|dmg)\b",
-            Pattern.CASE_INSENSITIVE));
-
-        PATTERNS.add(Pattern.compile(
-            "\bhit\s+[A-Za-z _-]+\s+for\s+([\d,]+(?:\.\d+)?)",
-            Pattern.CASE_INSENSITIVE));
+                "\\byou dealt\\s+([\\d,]+(?:\\.\\d+)?)\\s+(?:damage|dmg)\\b",
+                Pattern.CASE_INSENSITIVE));
 
         PATTERNS.add(Pattern.compile(
-            "\bdamage:\s*([\d,]+(?:\.\d+)?)",
-            Pattern.CASE_INSENSITIVE));
+                "\\bhit\\s+[A-Za-z _-]+\\s+for\\s+([\\d,]+(?:\\.\\d+)?)",
+                Pattern.CASE_INSENSITIVE));
 
         PATTERNS.add(Pattern.compile(
-            "\b([\d,]+(?:\.\d+)?)\s*(?:dmg|damage)\b",
-            Pattern.CASE_INSENSITIVE));
+                "\\bdamage:\\s*([\\d,]+(?:\\.\\d+)?)",
+                Pattern.CASE_INSENSITIVE));
+
+        PATTERNS.add(Pattern.compile(
+                "\\b([\\d,]+(?:\\.\\d+)?)\\s*(?:dmg|damage)\\b",
+                Pattern.CASE_INSENSITIVE));
     }
 
     private DamageParsers() {}
