@@ -9,83 +9,106 @@ import java.util.Map;
 
 public final class ClientDamageStore {
 
-    private static final int WINDOW_MS = 10_000;
+    // Ring buffer for rolling mode; manual mode ignores timestamp trimming until clear()
+    private static final int DEFAULT_WINDOW_MS = 10_000;
     private static final Deque<Entry> ENTRIES = new ArrayDeque<>();
 
     private ClientDamageStore() {}
 
     public static void clear() { ENTRIES.clear(); }
 
-    // Backwards-compatible record() used by existing parser:
+    /** legacy record signature */
     public static void record(double finalAmount, String sourceTag, double critMultiplier, String targetName) {
         record(finalAmount, sourceTag, critMultiplier, "", "");
     }
 
-    // Enhanced record with element and skill
+    /** record with element + skill name */
     public static void record(double finalAmount, String sourceTag, double critMultiplier, String element, String skill) {
         if (finalAmount <= 0) return;
         long now = System.currentTimeMillis();
         ENTRIES.addLast(new Entry(now, finalAmount, critMultiplier, nz(element), nz(skill), nz(sourceTag)));
-        trim(now);
+        trimIfRolling(now);
     }
 
-    public static double dps() {
-        long now = System.currentTimeMillis();
-        trim(now);
-        double sum = 0.0;
-        for (Entry e : ENTRIES) sum += e.amount;
-        return sum * 1000.0 / WINDOW_MS;
+    private static void trimIfRolling(long now) {
+        if (!ClientConfig.ROLLING_WINDOW_ENABLED.get()) return;
+        int window = ClientConfig.TIME_WINDOW_MS.get();
+        int win = Math.max(1000, window);
+        while (!ENTRIES.isEmpty() && now - ENTRIES.peekFirst().ts > win) ENTRIES.removeFirst();
+    }
+
+    /** total used by overlay depending on mode */
+    public static double totalForDisplay() {
+        if (ClientConfig.ROLLING_WINDOW_ENABLED.get()) {
+            return totalInWindowMs(ClientConfig.TIME_WINDOW_MS.get());
+        } else {
+            double sum = 0.0;
+            for (Entry e : ENTRIES) sum += e.amount;
+            return sum;
+        }
+    }
+
+    public static double dpsForDisplay() {
+        if (ClientConfig.ROLLING_WINDOW_ENABLED.get()) {
+            int w = Math.max(1000, ClientConfig.TIME_WINDOW_MS.get());
+            return totalInWindowMs(w) * 1000.0 / w;
+        } else {
+            // manual mode: DPS since last clear = total / elapsed
+            if (ENTRIES.isEmpty()) return 0.0;
+            long start = ENTRIES.peekFirst().ts;
+            long now = System.currentTimeMillis();
+            long elapsed = Math.max(1_000L, now - start);
+            return totalForDisplay() * 1000.0 / elapsed;
+        }
     }
 
     public static double totalInWindowMs(int windowMs) {
         long now = System.currentTimeMillis();
         long cutoff = now - Math.max(1000, windowMs);
-        trim(now);
         double sum = 0.0;
         for (Entry e : ENTRIES) if (e.ts >= cutoff) sum += e.amount;
         return sum;
     }
 
-    public static List<Pair> topElements(int windowMs, int max) {
+    /** Top skills for overlay. Returns up to topN items, aggregated by skill (label) and with remembered element. */
+    public static List<Row> topSkillsForDisplay(int topN) {
+        topN = Math.max(1, Math.min(15, topN));
         long now = System.currentTimeMillis();
-        long cutoff = now - Math.max(1000, windowMs);
-        Map<String, Double> acc = new HashMap<>();
+        boolean rolling = ClientConfig.ROLLING_WINDOW_ENABLED.get();
+        long cutoff = rolling ? (now - Math.max(1000, ClientConfig.TIME_WINDOW_MS.get())) : Long.MIN_VALUE;
+
+        Map<String, Agg> agg = new HashMap<>();
         for (Entry e : ENTRIES) {
             if (e.ts < cutoff) continue;
-            if (!e.element.isEmpty()) acc.merge(e.element, e.amount, Double::sum);
+            String key = e.skill.isEmpty() ? "(Unknown)" : e.skill;
+            Agg a = agg.getOrDefault(key, new Agg());
+            a.total += e.amount;
+            a.firstElement = a.firstElement == null || a.firstElement.isEmpty() ? e.element : a.firstElement;
+            agg.put(key, a);
         }
-        return topK(acc, max);
-    }
-
-    public static List<Pair> topSkills(int windowMs, int max) {
-        long now = System.currentTimeMillis();
-        long cutoff = now - Math.max(1000, windowMs);
-        Map<String, Double> acc = new HashMap<>();
-        for (Entry e : ENTRIES) {
-            if (e.ts < cutoff) continue;
-            if (!e.skill.isEmpty()) acc.merge(e.skill, e.amount, Double::sum);
+        // convert + sort
+        List<Row> rows = new ArrayList<>();
+        for (Map.Entry<String, Agg> en : agg.entrySet()) {
+            rows.add(new Row(en.getKey(), en.getValue().firstElement == null ? "" : en.getValue().firstElement, en.getValue().total));
         }
-        return topK(acc, max);
-    }
-
-    private static List<Pair> topK(Map<String, Double> acc, int max) {
-        List<Pair> list = new ArrayList<>();
-        for (Map.Entry<String, Double> en : acc.entrySet()) list.add(new Pair(en.getKey(), en.getValue()));
-        list.sort((a,b) -> Double.compare(b.value, a.value));
-        if (list.size() > max) return new ArrayList<>(list.subList(0, max));
-        return list;
-    }
-
-    private static void trim(long now) {
-        while (!ENTRIES.isEmpty() && now - ENTRIES.peekFirst().ts > WINDOW_MS) ENTRIES.removeFirst();
+        rows.sort((a,b) -> Double.compare(b.total, a.total));
+        if (rows.size() > topN) return new ArrayList<>(rows.subList(0, topN));
+        return rows;
     }
 
     private static String nz(String s) { return s == null ? "" : s; }
 
-    public static final class Pair {
-        public final String label;
-        public final double value;
-        public Pair(String l, double v) { this.label = l; this.value = v; }
+    private static final class Agg { double total = 0; String firstElement = ""; }
+
+    public static final class Row {
+        public final String label;   // skill name
+        public final String element; // element string for color
+        public final double total;   // total damage contributed
+        public Row(String label, String element, double total) {
+            this.label = label;
+            this.element = element;
+            this.total = total;
+        }
     }
 
     private record Entry(long ts, double amount, double crit, String element, String skill, String src) {}

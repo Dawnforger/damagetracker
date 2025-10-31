@@ -135,6 +135,10 @@ Adding Libraries to Inheritance
 Reading Input: C:\Users\shuns\Desktop\minecraft-damage-tracker\build\libs\damagetracker-1.1.0.jar
 Adding input to inheritance map
 Processing entries
+Conflicting propagated mapping for com/dawnforger/damagetracker/client/DamageReportScreen/keyPressed(III)Z from net/minecraft/client/gui/screens/Screen/keyPressed(III)Z: keyPressed -> m_7933_
+Conflicting propagated mapping for com/dawnforger/damagetracker/client/DamageReportScreen/isPauseScreen()Z from net/minecraft/client/gui/screens/Screen/isPauseScreen()Z: isPauseScreen -> m_7043_
+Conflicting propagated mapping for com/dawnforger/damagetracker/client/DamageReportScreen/render(Lnet/minecraft/client/gui/GuiGraphics;IIF)V from net/minecraft/client/gui/screens/Screen/render(Lnet/minecraft/client/gui/GuiGraphics;IIF)V: render -> m_88315_
+Conflicting propagated mapping for com/dawnforger/damagetracker/client/DamageReportScreen/mouseScrolled(DDD)Z from net/minecraft/client/gui/components/events/ContainerEventHandler/mouseScrolled(DDD)Z: mouseScrolled -> m_6050_
 Conflicting propagated mapping for net/minecraft/world/entity/LivingEntity/lambda$addAdditionalSaveData$3(Lnet/minecraft/nbt/CompoundTag;Lnet/minecraft/nbt/Tag;)V from net/minecraft/world/entity/player/Player/lambda$addAdditionalSaveData$3(Lnet/minecraft/nbt/CompoundTag;Lnet/minecraft/nbt/Tag;)V: lambda$addAdditionalSaveData$3 -> m_219754_
 Adding extras
 Sorting
@@ -152,12 +156,15 @@ Writing Output: C:\Users\shuns\Desktop\minecraft-damage-tracker\build\reobfJar\o
   com/dawnforger/damagetracker/DamageTracker.class
   com/dawnforger/damagetracker/client/
   com/dawnforger/damagetracker/client/ClientConfig.class
+  com/dawnforger/damagetracker/client/ClientDamageStore$Agg.class
   com/dawnforger/damagetracker/client/ClientDamageStore$Entry.class
-  com/dawnforger/damagetracker/client/ClientDamageStore$Pair.class
+  com/dawnforger/damagetracker/client/ClientDamageStore$Row.class
   com/dawnforger/damagetracker/client/ClientDamageStore.class
   com/dawnforger/damagetracker/client/DamageChatTap.class
   com/dawnforger/damagetracker/client/DamageOverlay.class
   com/dawnforger/damagetracker/client/DamageParsers.class
+  com/dawnforger/damagetracker/client/DamageReportScreen.class
+  com/dawnforger/damagetracker/client/ElementColors.class
   com/dawnforger/damagetracker/client/Keybinds$Runtime.class
   com/dawnforger/damagetracker/client/Keybinds.class
   pack.mcmeta
