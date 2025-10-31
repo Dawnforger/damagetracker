@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
  * Core damage tracking system
  */
 public class DamageTracker {
-    private static final DamageTracker INSTANCE = new DamageTracker();
+    public static final DamageTracker INSTANCE = new DamageTracker();
     
     private final Queue<DamageEntry> damageHistory = new ConcurrentLinkedQueue<>();
     private final Map<String, DamageStats> aggregatedStats = new HashMap<>();
