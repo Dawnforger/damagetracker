@@ -2,7 +2,6 @@ package com.dawnforger.damagetracker.client;
 
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.event.TickEvent;
@@ -43,7 +42,7 @@ public final class Keybinds {
             }
             if (OPEN_REPORT != null && OPEN_REPORT.consumeClick()) {
                 Minecraft mc = Minecraft.getInstance();
-                if (mc.screen == null) {
+                if (mc != null && mc.player != null && mc.level != null) {
                     mc.setScreen(new DamageReportScreen());
                 }
             }
