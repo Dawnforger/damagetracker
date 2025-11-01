@@ -11,16 +11,15 @@
       <change beforePath="$PROJECT_DIR$/.gradle/8.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.1.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.1.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.1.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/dawnforger/damagetracker/client/RegexProfile.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/dawnforger/damagetracker/client/RegexProfile.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/libs/damagetracker-1.1.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/dawnforger/damagetracker/client/DamageParsers.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/dawnforger/damagetracker/client/DamageParsers.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/dawnforger/damagetracker/client/ElementColors.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/dawnforger/damagetracker/client/ElementColors.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/libs/damagetracker-1.1.2.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/damagetracker-1.1.2.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/reobfJar/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/reobfJar/log.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/reobfJar/output.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/reobfJar/output.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/META-INF/mods.toml" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/META-INF/mods.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/jar/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/jar/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dawnforger/damagetracker/client/RegexProfile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dawnforger/damagetracker/client/RegexProfile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/dawnforger/damagetracker/client/DamageParsers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dawnforger/damagetracker/client/DamageParsers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/dawnforger/damagetracker/client/ElementColors.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dawnforger/damagetracker/client/ElementColors.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -465,7 +464,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761966989269</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="added crash guard">
+      <option name="closed" value="true" />
+      <created>1761968325779</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1761968325779</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
