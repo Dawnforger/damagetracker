@@ -21,15 +21,12 @@ public final class RegexProfile {
     private static final List<Pattern> PATS = new ArrayList<>();
 
     static {
-        // Variant A: optional [Name] prefix
         PATS.add(Pattern.compile(
-                "^(?:\\[[^\\]]+\\]\\s+)?(?:applied|dealt)\\s+([\\d,]+(?:\\.\\d+)?)\\s+\\S+\\s+([A-Za-z\\- ]+?)\\s+Damage(?:\\s+with\\s+(.+))?$",
+                "^(?:\\[[^\\]]+\\]\\s+)?(?:applied|dealt)\\s+([\\d,]+(?:\\.\\d+)?)\\s+\\S+\\s+([A-Za-z\\- ]+?)\\s+Damage(?:\\s+with\\s+([A-Za-z'\\- ]+?))?\\s*$",
                 Pattern.CASE_INSENSITIVE));
-        // Variant B: loose fallback with optional 'with <skill>'
         PATS.add(Pattern.compile(
-                "(?:applied|dealt)\\s+([\\d,]+(?:\\.\\d+)?)\\b.*?([A-Za-z\\- ]+?)\\s+Damage(?:\\s+with\\s+(.+))?",
+                "(?:applied|dealt)\\s+([\\d,]+(?:\\.\\d+)?)\\b.*?([A-Za-z\\- ]+?)\\s+Damage(?:\\s+with\\s+([A-Za-z'\\- ]+?))?\\s*$",
                 Pattern.CASE_INSENSITIVE));
-        // Variant C: last resort - capture just the number
         PATS.add(Pattern.compile(
                 "(?:applied|dealt)\\s+([\\d,]+(?:\\.\\d+)?)\\b.*?Damage",
                 Pattern.CASE_INSENSITIVE));
@@ -60,11 +57,19 @@ public final class RegexProfile {
             }
             if (amount == null || amount <= 0) continue;
 
-            if (m.groupCount() >= 2 && m.group(2) != null) element = m.group(2).trim();
-            if (m.groupCount() >= 3 && m.group(3) != null) skill = m.group(3).trim();
-            if (skill.length() > 60) skill = skill.substring(0, 60);
+            if (m.groupCount() >= 2 && m.group(2) != null) element = tidy(m.group(2));
+            if (m.groupCount() >= 3 && m.group(3) != null) skill = tidy(m.group(3));
             return new Parsed(amount, element, skill);
         }
         return null;
+    }
+
+    private static String tidy(String s) {
+        if (s == null) return "";
+        s = s.trim();
+        while (!s.isEmpty() && ".!,;:".indexOf(s.charAt(s.length()-1)) >= 0) {
+            s = s.substring(0, s.length()-1).trim();
+        }
+        return s;
     }
 }
