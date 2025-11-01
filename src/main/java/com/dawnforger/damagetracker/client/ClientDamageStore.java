@@ -9,7 +9,6 @@ import java.util.Map;
 
 public final class ClientDamageStore {
 
-    private static final int DEFAULT_WINDOW_MS = 10_000;
     private static final Deque<Entry> ENTRIES = new ArrayDeque<>();
 
     private ClientDamageStore() {}
@@ -65,11 +64,12 @@ public final class ClientDamageStore {
         return sum;
     }
 
-    public static String latestDetailsForSkill(String skill) {
-        if (skill == null || skill.isEmpty()) return null;
+    public static String latestDetailsForSkill(String skillOrElement) {
+        if (skillOrElement == null || skillOrElement.isEmpty()) return null;
         for (var it = ENTRIES.descendingIterator(); it.hasNext(); ) {
             Entry e = it.next();
-            if (skill.equals(e.skill) && e.details != null && !e.details.isEmpty()) return e.details;
+            String key = labelFor(e);
+            if (skillOrElement.equals(key) && e.details != null && !e.details.isEmpty()) return e.details;
         }
         return null;
     }
@@ -83,23 +83,29 @@ public final class ClientDamageStore {
         Map<String, Agg> agg = new HashMap<>();
         for (Entry e : ENTRIES) {
             if (e.ts < cutoff) continue;
-            String key = e.skill.isEmpty() ? "(Unknown)" : e.skill;
+            String key = labelFor(e); // prefer skill, else element, else "(Unknown)"
             Agg a = agg.getOrDefault(key, new Agg());
             a.total += e.amount;
-            a.firstElement = a.firstElement == null || a.firstElement.isEmpty() ? e.element : a.firstElement;
+            a.element = a.element.isEmpty() ? e.element : a.element; // retain first seen element for color
             agg.put(key, a);
         }
         List<Row> rows = new ArrayList<>();
         for (Map.Entry<String, Agg> en : agg.entrySet()) {
-            rows.add(new Row(en.getKey(), en.getValue().firstElement == null ? "" : en.getValue().firstElement, en.getValue().total));
+            rows.add(new Row(en.getKey(), en.getValue().element, en.getValue().total));
         }
         rows.sort((a,b) -> Double.compare(b.total, a.total));
         if (rows.size() > topN) return new ArrayList<>(rows.subList(0, topN));
         return rows;
     }
 
+    private static String labelFor(Entry e) {
+        if (e.skill != null && !e.skill.isEmpty()) return e.skill;
+        if (e.element != null && !e.element.isEmpty()) return e.element;
+        return "(Unknown)";
+    }
+
     private static String nz(String s) { return s == null ? "" : s; }
-    private static final class Agg { double total = 0; String firstElement = ""; }
+    private static final class Agg { double total = 0; String element = ""; }
 
     public static final class Row {
         public final String label;
