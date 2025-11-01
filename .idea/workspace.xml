@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cb4230e-f4fc-4193-9fe7-061917126a6d" name="Changes" comment="added crash guard">
+    <list default="true" id="6cb4230e-f4fc-4193-9fe7-061917126a6d" name="Changes" comment="finalized the fixes to data tracking">
+      <change beforePath="$PROJECT_DIR$/.gradle/8.1.1/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.1.1/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.1.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.1.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.1.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -12,14 +13,21 @@
       <change beforePath="$PROJECT_DIR$/.gradle/8.1.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.1.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/dawnforger/damagetracker/client/ClientConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/dawnforger/damagetracker/client/ClientConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/dawnforger/damagetracker/client/ClientDamageStore$Agg.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/dawnforger/damagetracker/client/ClientDamageStore$Entry.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/dawnforger/damagetracker/client/ClientDamageStore$Row.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/dawnforger/damagetracker/client/ClientDamageStore$Row.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/dawnforger/damagetracker/client/ClientDamageStore.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/dawnforger/damagetracker/client/ClientDamageStore.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/dawnforger/damagetracker/client/DamageChatTap.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/dawnforger/damagetracker/client/DamageChatTap.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/dawnforger/damagetracker/client/DamageParsers.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/dawnforger/damagetracker/client/DamageParsers.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/com/dawnforger/damagetracker/client/ElementColors.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/com/dawnforger/damagetracker/client/ElementColors.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/libs/damagetracker-1.1.2.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/libs/damagetracker-1.1.2.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/reobfJar/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/reobfJar/log.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/reobfJar/output.jar" beforeDir="false" afterPath="$PROJECT_DIR$/build/reobfJar/output.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/dawnforger/damagetracker/client/ClientConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dawnforger/damagetracker/client/ClientConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/dawnforger/damagetracker/client/ClientDamageStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dawnforger/damagetracker/client/ClientDamageStore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/dawnforger/damagetracker/client/DamageChatTap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dawnforger/damagetracker/client/DamageChatTap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/dawnforger/damagetracker/client/DamageParsers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dawnforger/damagetracker/client/DamageParsers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dawnforger/damagetracker/client/ElementColors.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/dawnforger/damagetracker/client/ElementColors.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -472,7 +480,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761968325779</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="finalized the fixes to data tracking">
+      <option name="closed" value="true" />
+      <created>1761974859862</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1761974859862</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -484,6 +500,7 @@
     <MESSAGE value="Polished the config and overlay functions" />
     <MESSAGE value="feature pack 4 curtesy of Munkee!" />
     <MESSAGE value="added crash guard" />
-    <option name="LAST_COMMIT_MESSAGE" value="added crash guard" />
+    <MESSAGE value="finalized the fixes to data tracking" />
+    <option name="LAST_COMMIT_MESSAGE" value="finalized the fixes to data tracking" />
   </component>
 </project>

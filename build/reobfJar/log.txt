@@ -156,8 +156,8 @@ Writing Output: C:\Users\shuns\Desktop\minecraft-damage-tracker\build\reobfJar\o
   com/dawnforger/damagetracker/DamageTracker.class
   com/dawnforger/damagetracker/client/
   com/dawnforger/damagetracker/client/ClientConfig.class
-  com/dawnforger/damagetracker/client/ClientDamageStore$Agg.class
-  com/dawnforger/damagetracker/client/ClientDamageStore$Entry.class
+  com/dawnforger/damagetracker/client/ClientDamageStore$Hit.class
+  com/dawnforger/damagetracker/client/ClientDamageStore$Pair.class
   com/dawnforger/damagetracker/client/ClientDamageStore$Row.class
   com/dawnforger/damagetracker/client/ClientDamageStore.class
   com/dawnforger/damagetracker/client/DamageChatTap.class

@@ -20,7 +20,13 @@ public final class ClientConfig {
     public static final ForgeConfigSpec.IntValue OVERLAY_MAX_HEIGHT;
     public static final ForgeConfigSpec.BooleanValue OVERLAY_ENABLED_DEFAULT;
 
-    // ARGB element colors (must allow full signed int range, since 0xFFxxxxxx is negative in Java)
+    // Capture/dedupe behavior
+    public static final ForgeConfigSpec.BooleanValue REQUIRE_SELF_ONLY;
+    public static final ForgeConfigSpec.IntValue DEDUPE_MS;
+    public static final ForgeConfigSpec.BooleanValue PREFER_DEALT_OVER_APPLIED;
+    public static final ForgeConfigSpec.IntValue IDLE_FREEZE_MS;
+
+    // Colors
     public static final ForgeConfigSpec.IntValue COLOR_PHYSICAL;
     public static final ForgeConfigSpec.IntValue COLOR_FIRE;
     public static final ForgeConfigSpec.IntValue COLOR_LIGHTNING;
@@ -33,7 +39,6 @@ public final class ClientConfig {
     static {
         ForgeConfigSpec.Builder b = new ForgeConfigSpec.Builder();
 
-        // ---------- Overlay options ----------
         b.push("overlay");
         TIME_WINDOW_MS = b.defineInRange("timeWindowMs", 10_000, 1_000, 300_000);
         ROLLING_WINDOW_ENABLED = b.define("rollingWindowEnabled", true);
@@ -45,10 +50,15 @@ public final class ClientConfig {
         OVERLAY_ENABLED_DEFAULT = b.define("enabledByDefault", true);
         b.pop();
 
-        // ---------- Element colors ----------
+        b.push("capture");
+        REQUIRE_SELF_ONLY = b.define("requireSelfOnly", true);
+        DEDUPE_MS = b.defineInRange("dedupeMs", 150, 0, 1000);
+        PREFER_DEALT_OVER_APPLIED = b.define("preferDealtOverApplied", true);
+        IDLE_FREEZE_MS = b.defineInRange("idleFreezeMs", 1500, 0, 60_000);
+        b.pop();
+
         b.push("colors");
-        final int MIN = Integer.MIN_VALUE;  // allow negative ARGB
-        final int MAX = Integer.MAX_VALUE;
+        final int MIN = Integer.MIN_VALUE, MAX = Integer.MAX_VALUE;
         COLOR_PHYSICAL  = b.defineInRange("physical",  0xFFCCCCCC, MIN, MAX);
         COLOR_FIRE      = b.defineInRange("fire",      0xFFFF6B5A, MIN, MAX);
         COLOR_LIGHTNING = b.defineInRange("lightning", 0xFFFFE066, MIN, MAX);
