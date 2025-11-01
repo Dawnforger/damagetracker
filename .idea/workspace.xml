@@ -124,7 +124,7 @@
       <recent name="C:\Users\shuns\Desktop\minecraft-damage-tracker" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.minecraft-damage-tracker [jar]">
+  <component name="RunManager" selected="Gradle.minecraft-damage-tracker [build]">
     <configuration name="minecraft-damage-tracker [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -202,9 +202,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.minecraft-damage-tracker [jar]" />
         <item itemvalue="Gradle.minecraft-damage-tracker [build]" />
         <item itemvalue="Gradle.minecraft-damage-tracker [clean]" />
+        <item itemvalue="Gradle.minecraft-damage-tracker [jar]" />
       </list>
     </recent_temporary>
   </component>

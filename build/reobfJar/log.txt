@@ -167,4 +167,6 @@ Writing Output: C:\Users\shuns\Desktop\minecraft-damage-tracker\build\reobfJar\o
   com/dawnforger/damagetracker/client/ElementColors.class
   com/dawnforger/damagetracker/client/Keybinds$Runtime.class
   com/dawnforger/damagetracker/client/Keybinds.class
+  com/dawnforger/damagetracker/client/RegexProfile$Parsed.class
+  com/dawnforger/damagetracker/client/RegexProfile.class
   pack.mcmeta
