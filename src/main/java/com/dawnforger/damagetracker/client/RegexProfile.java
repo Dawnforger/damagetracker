@@ -21,15 +21,22 @@ public final class RegexProfile {
     private static final List<Pattern> PATS = new ArrayList<>();
 
     static {
+        // Primary:
+        //   <verb> <amount> <icons/nonletters> <Element> Damage with <Skill>
+        // Nonletters between amount and element are skipped with [^A-Za-z\\r\\n]* so icons like "?" never break the match.
         PATS.add(Pattern.compile(
-                "^(?:\\[[^\\]]+\\]\\s+)?(?:applied|dealt)\\s+([\\d,]+(?:\\.\\d+)?)\\s+\\S+\\s+([A-Za-z\\- ]+?)\\s+Damage(?:\\s+with\\s+([A-Za-z'\\- ]+?))?\\s*$",
-                Pattern.CASE_INSENSITIVE));
+                "(?i)^.*?(?:applied|dealt)\\s+([\\d,]+(?:\\.\\d+)?)\\s+[^A-Za-z\\r\\n]*([A-Za-z][A-Za-z\\- ]+?)\\s+Damage\\s+with\\s+([A-Za-z'\\- ]+)\\s*$"
+        ));
+
+        // Secondary: capture Element only (no skill present)
         PATS.add(Pattern.compile(
-                "(?:applied|dealt)\\s+([\\d,]+(?:\\.\\d+)?)\\b.*?([A-Za-z\\- ]+?)\\s+Damage(?:\\s+with\\s+([A-Za-z'\\- ]+?))?\\s*$",
-                Pattern.CASE_INSENSITIVE));
+                "(?i)^.*?(?:applied|dealt)\\s+([\\d,]+(?:\\.\\d+)?)\\s+[^A-Za-z\\r\\n]*([A-Za-z][A-Za-z\\- ]+?)\\s+Damage\\s*$"
+        ));
+
+        // Fallback: amount only so we never drop a line
         PATS.add(Pattern.compile(
-                "(?:applied|dealt)\\s+([\\d,]+(?:\\.\\d+)?)\\b.*?Damage",
-                Pattern.CASE_INSENSITIVE));
+                "(?i)(?:applied|dealt)\\s+([\\d,]+(?:\\.\\d+)?)\\b.*?Damage"
+        ));
     }
 
     private RegexProfile() {}
@@ -43,6 +50,7 @@ public final class RegexProfile {
             Double amount = null;
             String element = "";
             String skill = "";
+
             if (m.groupCount() >= 1) {
                 String g1 = m.group(1);
                 if (g1 != null && !g1.isEmpty()) {
