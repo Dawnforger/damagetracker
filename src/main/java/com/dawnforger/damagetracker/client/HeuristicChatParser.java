@@ -40,11 +40,15 @@ public final class HeuristicChatParser {
 
         String norm = DamageParsers.normalize(line);
 
-        // 1) amount = first number
+        // 1) amount = the last number that appears before the " Damage" token
         Double amount = null;
-        Matcher m = NUM.matcher(norm);
-        if (m.find()) {
-            try { amount = Double.parseDouble(m.group(1).replace(",", "")); } catch (Exception ignored) {}
+        int dmgIndex = norm.toLowerCase(Locale.ROOT).indexOf(" damage");
+        if (dmgIndex > 0) {
+            Matcher m = NUM.matcher(norm.substring(0, dmgIndex));
+            // set amount to the last number before " Damage"
+            while (m.find()) {
+                try { amount = Double.parseDouble(m.group(1).replace(",", "")); } catch (Exception ignored) {}
+            }
         }
         if (amount == null || amount <= 0) return null;
 
